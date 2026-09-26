@@ -172,16 +172,24 @@ const StudyChill = () => {
     return () => clearInterval(interval);
   }, [isActive, timer]);
 
-  const toggleMusic = () => {
-    if (!rainAudioRef.current) return;
-    if (!isMusicPlaying) {
-      rainAudioRef.current.play().catch(err => {
-        console.error("Playback failed:", err);
-      });
-    } else {
-      rainAudioRef.current.pause();
+  const toggleMusic = async () => {
+    try {
+      if (!isMusicPlaying) {
+        if (!rainAudioRef.current) {
+          rainAudioRef.current = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
+          rainAudioRef.current.loop = true;
+        }
+        rainAudioRef.current.volume = sounds.rain;
+        await rainAudioRef.current.play();
+      } else {
+        if (rainAudioRef.current) {
+          rainAudioRef.current.pause();
+        }
+      }
+      setIsMusicPlaying(!isMusicPlaying);
+    } catch (err) {
+      console.error("Audio playback failed:", err);
     }
-    setIsMusicPlaying(!isMusicPlaying);
   };
 
   const updateLofiVolume = (val) => {
