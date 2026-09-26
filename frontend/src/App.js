@@ -173,6 +173,7 @@ const StudyChill = () => {
     if (!rainAudioRef.current) return;
     try {
       if (!isMusicPlaying) {
+        // Force a small sound to "unlock" the audio context for the browser
         await rainAudioRef.current.play();
       } else {
         rainAudioRef.current.pause();
@@ -180,7 +181,7 @@ const StudyChill = () => {
       setIsMusicPlaying(!isMusicPlaying);
     } catch (err) {
       console.error("Audio playback failed:", err);
-      alert("Please click anywhere on the page first to enable sound!");
+      alert("Browser blocked the sound! Please refresh and click once on the background first.");
     }
   };
 
