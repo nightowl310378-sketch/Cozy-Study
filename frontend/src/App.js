@@ -119,10 +119,6 @@ const StudyChill = () => {
   };
 
   useEffect(() => {
-    audioRef.current = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3'); 
-    audioRef.current.loop = true;
-    audioRef.current.volume = sounds.lofi;
-
     rainAudioRef.current = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
     rainAudioRef.current.loop = true;
     rainAudioRef.current.volume = sounds.rain;
@@ -174,12 +170,10 @@ const StudyChill = () => {
   }, [isActive, timer]);
 
   const toggleMusic = () => {
-    if (!audioRef.current || !rainAudioRef.current) return;
+    if (!rainAudioRef.current) return;
     if (!isMusicPlaying) {
-      audioRef.current.play().catch(err => console.error("Playback failed:", err));
       rainAudioRef.current.play().catch(err => console.error("Playback failed:", err));
     } else {
-      audioRef.current.pause();
       rainAudioRef.current.pause();
     }
     setIsMusicPlaying(!isMusicPlaying);
@@ -293,7 +287,18 @@ const StudyChill = () => {
                   <button onClick={handleLogout} className="text-xs text-gray-400 hover:text-white transition-colors underline">Logout</button>
                 </div>
               ) : (
-                <button onClick={handleLogin} className="bg-white text-black px-4 py-1 rounded-full text-sm font-medium hover:bg-gray-200 transition-all">Login with Google</button>
+                <button 
+                  onClick={handleLogin} 
+                  className={`px-6 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-lg backdrop-blur-md border ${
+                    currentTheme === 'midnight' ? 'bg-purple-600/20 text-purple-300 border-purple-500/50 hover:bg-purple-600/40' :
+                    currentTheme === 'indianRetro' ? 'bg-orange-600/20 text-orange-300 border-orange-500/50 hover:bg-orange-600/40' :
+                    currentTheme === 'rainyTokyo' ? 'bg-blue-600/20 text-blue-300 border-blue-500/50 hover:bg-blue-600/40' :
+                    currentTheme === 'ghibliLibrary' ? 'bg-green-600/20 text-green-300 border-green-500/50 hover:bg-green-600/40' :
+                    'bg-pink-600/20 text-pink-300 border-pink-500/50 hover:bg-pink-600/40'
+                  }`}
+                >
+                  Sign In
+                </button>
               )}
               <div className="flex items-center gap-4 text-sm text-gray-400">
                 <div className="flex items-center gap-2 bg-white/5 px-3 py-1 rounded-full border border-white/10">
@@ -341,32 +346,23 @@ const StudyChill = () => {
             </div>
           </div>
 
-           <div className="mt-12 w-full max-w-md bg-black/40 backdrop-blur-md border border-white/10 p-4 rounded-2xl flex flex-col gap-4">
-             <div className="flex items-center gap-6">
-               <button onClick={toggleMusic} className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
-                 <span className="text-xl">{isMusicPlaying ? '⏸' : '▶️'}</span>
-               </button>
-               <div className="flex-1">
-                 <div className="flex justify-between text-[10px] uppercase tracking-widest text-gray-500 mb-1">
-                   <span className="font-bold">Lofi Beats</span>
-                   <span>{Math.round(sounds.lofi * 100)}%</span>
-                 </div>
-                 <input type="range" min="0" max="1" step="0.01" value={sounds.lofi} onChange={(e) => updateLofiVolume(parseFloat(e.target.value))} className="w-full accent-purple-500 h-1" />
-               </div>
-             </div>
-             <div className="flex items-center gap-6 border-t border-white/5 pt-4">
-               <div className="flex-1">
-                 <div className="flex justify-between text-[10px] uppercase tracking-widest text-gray-500 mb-1">
-                   <span className="font-bold">Rain Drops</span>
-                   <span>{Math.round(sounds.rain * 100)}%</span>
-                 </div>
-                 <input type="range" min="0" max="1" step="0.01" value={sounds.rain} onChange={(e) => {
-                   setSounds({...sounds, rain: parseFloat(e.target.value)});
-                   if (rainAudioRef.current) rainAudioRef.current.volume = parseFloat(e.target.value);
-                 }} className="w-full accent-blue-500 h-1" />
-               </div>
-             </div>
-           </div>
+            <div className="mt-12 w-full max-w-md bg-black/40 backdrop-blur-md border border-white/10 p-4 rounded-2xl flex flex-col gap-4">
+              <div className="flex items-center gap-6">
+                <button onClick={toggleMusic} className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
+                  <span className="text-xl">{isMusicPlaying ? '⏸' : '▶️'}</span>
+                </button>
+                <div className="flex-1">
+                  <div className="flex justify-between text-[10px] uppercase tracking-widest text-gray-500 mb-1">
+                    <span className="font-bold">Rain Atmosphere</span>
+                    <span>{Math.round(sounds.rain * 100)}%</span>
+                  </div>
+                  <input type="range" min="0" max="1" step="0.01" value={sounds.rain} onChange={(e) => {
+                    setSounds({...sounds, rain: parseFloat(e.target.value)});
+                    if (rainAudioRef.current) rainAudioRef.current.volume = parseFloat(e.target.value);
+                  }} className="w-full accent-blue-500 h-1" />
+                </div>
+              </div>
+            </div>
         </div>
 
         <div className="w-full lg:w-96 flex flex-col gap-6">
