@@ -28,7 +28,7 @@ const THEMES = {
   },
   ghibliLibrary: {
     name: 'Ghibli Library',
-    image: 'https://wallpapercave.com/wp/wp11551267.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZRTntVmDUOf0LLjUIpYzHGqni_5LlQNFX-jh4_7msVA&s=10',
     bg: '#1a1c18',
     accent: '#4ade80',
     isPremium: false
