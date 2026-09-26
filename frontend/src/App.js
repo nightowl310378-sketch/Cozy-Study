@@ -201,6 +201,12 @@ const StudyChill = () => {
     setTasks(tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
   };
 
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
   const handleSetTimer = () => {
     const mins = parseInt(customTime);
     if (mins > 0 && mins <= 1440) {
