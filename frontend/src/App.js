@@ -119,7 +119,7 @@ const StudyChill = () => {
   };
 
   useEffect(() => {
-    rainAudioRef.current = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
+    rainAudioRef.current = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_7964f88679.mp3');
     rainAudioRef.current.loop = true;
     rainAudioRef.current.volume = sounds.rain;
   }, []);
