@@ -214,6 +214,8 @@ const StudyChill = () => {
     }
   };
 
+  const theme = THEMES[currentTheme];
+
   const handleLogin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
