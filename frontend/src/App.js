@@ -119,9 +119,12 @@ const StudyChill = () => {
   };
 
   useEffect(() => {
-    rainAudioRef.current = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
+    rainAudioRef.current = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_7964f88679.mp3');
     rainAudioRef.current.loop = true;
     rainAudioRef.current.volume = sounds.rain;
+    
+    // Pre-load the audio to avoid delays
+    rainAudioRef.current.load();
   }, []);
 
   useEffect(() => {
@@ -169,20 +172,16 @@ const StudyChill = () => {
     return () => clearInterval(interval);
   }, [isActive, timer]);
 
-  const toggleMusic = async () => {
+  const toggleMusic = () => {
     if (!rainAudioRef.current) return;
-    try {
-      if (!isMusicPlaying) {
-        // Force a small sound to "unlock" the audio context for the browser
-        await rainAudioRef.current.play();
-      } else {
-        rainAudioRef.current.pause();
-      }
-      setIsMusicPlaying(!isMusicPlaying);
-    } catch (err) {
-      console.error("Audio playback failed:", err);
-      alert("Browser blocked the sound! Please refresh and click once on the background first.");
+    if (!isMusicPlaying) {
+      rainAudioRef.current.play().catch(err => {
+        console.error("Playback failed:", err);
+      });
+    } else {
+      rainAudioRef.current.pause();
     }
+    setIsMusicPlaying(!isMusicPlaying);
   };
 
   const updateLofiVolume = (val) => {
@@ -248,9 +247,7 @@ const StudyChill = () => {
              backgroundImage: `url(${theme.image})`, 
              backgroundSize: 'cover', 
              backgroundPosition: 'center',
-             filter: currentTheme === 'ghibliLibrary' 
-               ? 'brightness(0.3) contrast(1.2) saturate(0.6) sepia(0.3)' 
-               : 'brightness(0.4) contrast(0.9) saturate(0.7) sepia(0.2)' 
+             filter: 'brightness(0.4) contrast(0.9) saturate(0.7) sepia(0.2)' 
            }}
       />
 
