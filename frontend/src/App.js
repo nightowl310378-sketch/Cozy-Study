@@ -119,7 +119,7 @@ const StudyChill = () => {
   };
 
   useEffect(() => {
-    rainAudioRef.current = new Audio('https://assets.mixkit.co/active_storage/sfx/2436/2436-preview.mp3');
+    rainAudioRef.current = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
     rainAudioRef.current.loop = true;
     rainAudioRef.current.volume = sounds.rain;
   }, []);
