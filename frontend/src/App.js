@@ -119,7 +119,7 @@ const StudyChill = () => {
   };
 
   useEffect(() => {
-    rainAudioRef.current = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_7964f88679.mp3');
+    rainAudioRef.current = new Audio('https://assets.mixkit.co/active_storage/sfx/2436/2436-preview.mp3');
     rainAudioRef.current.loop = true;
     rainAudioRef.current.volume = sounds.rain;
   }, []);
@@ -169,14 +169,19 @@ const StudyChill = () => {
     return () => clearInterval(interval);
   }, [isActive, timer]);
 
-  const toggleMusic = () => {
+  const toggleMusic = async () => {
     if (!rainAudioRef.current) return;
-    if (!isMusicPlaying) {
-      rainAudioRef.current.play().catch(err => console.error("Playback failed:", err));
-    } else {
-      rainAudioRef.current.pause();
+    try {
+      if (!isMusicPlaying) {
+        await rainAudioRef.current.play();
+      } else {
+        rainAudioRef.current.pause();
+      }
+      setIsMusicPlaying(!isMusicPlaying);
+    } catch (err) {
+      console.error("Audio playback failed:", err);
+      alert("Please click anywhere on the page first to enable sound!");
     }
-    setIsMusicPlaying(!isMusicPlaying);
   };
 
   const updateLofiVolume = (val) => {
