@@ -175,12 +175,12 @@ const StudyChill = () => {
   const toggleMusic = async () => {
     try {
       if (!isMusicPlaying) {
-        if (!rainAudioRef.current) {
-          rainAudioRef.current = new Audio('https://www.soundjay.com/nature/rain-01.mp3');
-          rainAudioRef.current.loop = true;
-        }
-        rainAudioRef.current.volume = sounds.rain;
-        await rainAudioRef.current.play();
+        // Using a direct link from a source known to support CORS
+        const rainAudio = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_7964f88679.mp3');
+        rainAudio.loop = true;
+        rainAudio.volume = sounds.rain;
+        rainAudioRef.current = rainAudio;
+        await rainAudio.play();
       } else {
         if (rainAudioRef.current) {
           rainAudioRef.current.pause();
@@ -189,6 +189,7 @@ const StudyChill = () => {
       setIsMusicPlaying(!isMusicPlaying);
     } catch (err) {
       console.error("Audio playback failed:", err);
+      alert("Sound failed to load. Please check your internet connection!");
     }
   };
 
