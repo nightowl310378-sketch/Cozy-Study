@@ -119,7 +119,7 @@ const StudyChill = () => {
   };
 
   useEffect(() => {
-    audioRef.current = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3'); // Updated to a track that sounds more like "Chubina" (upbeat lofi)
+    audioRef.current = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3'); 
     audioRef.current.loop = true;
     audioRef.current.volume = sounds.lofi;
 
@@ -227,6 +227,7 @@ const StudyChill = () => {
       await signInWithPopup(auth, googleProvider);
     } catch (error) {
       console.error("Login failed:", error);
+      alert("Login failed. Please try again.");
     }
   };
 
