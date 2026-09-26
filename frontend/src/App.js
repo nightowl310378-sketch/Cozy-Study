@@ -28,7 +28,7 @@ const THEMES = {
   },
   ghibliLibrary: {
     name: 'Ghibli Library',
-    image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1920&q=80',
+    image: 'https://th.bing.com/th/id/OIP.OoeLca0MCRpvcmqBQfy4RQHaD9?w=341&h=182&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
     bg: '#1a1c18',
     accent: '#4ade80',
     isPremium: false
@@ -244,12 +244,14 @@ const StudyChill = () => {
         key={currentTheme}
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5 }}
         className="absolute inset-0 z-0 pointer-events-none"
-        style={{ 
-          backgroundImage: `url(${theme.image})`, 
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center',
-          filter: 'brightness(0.4) contrast(0.9) saturate(0.7) sepia(0.2)' 
-        }}
+           style={{ 
+             backgroundImage: `url(${theme.image})`, 
+             backgroundSize: 'cover', 
+             backgroundPosition: 'center',
+             filter: currentTheme === 'ghibliLibrary' 
+               ? 'brightness(0.3) contrast(1.2) saturate(0.6) sepia(0.3)' 
+               : 'brightness(0.4) contrast(0.9) saturate(0.7) sepia(0.2)' 
+           }}
       />
 
       <AnimatePresence>
@@ -267,12 +269,12 @@ const StudyChill = () => {
       <div className="absolute inset-0 z-50 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
       {/* GLOWING EFFECT - Removed for Kashmir and Tokyo */}
-      {currentTheme !== 'indianRetro' && currentTheme !== 'rainyTokyo' && (
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[150px] opacity-30 animate-pulse transition-colors duration-1000"
-          style={{ background: `radial-gradient(circle, ${theme.accent} 0%, transparent 70%)` }}
-        />
-      )}
+       {currentTheme !== 'indianRetro' && currentTheme !== 'rainyTokyo' && currentTheme !== 'ghibliLibrary' && (
+         <div 
+           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full blur-[150px] opacity-30 animate-pulse transition-colors duration-1000"
+           style={{ background: `radial-gradient(circle, ${theme.accent} 0%, transparent 70%)` }}
+         />
+       )}
 
       <div style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>
         <div id="youtube-player"></div>
