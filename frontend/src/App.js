@@ -28,7 +28,7 @@ const THEMES = {
   },
   ghibliLibrary: {
     name: 'Ghibli Library',
-    image: 'https://th.bing.com/th/id/OIP.OoeLca0MCRpvcmqBQfy4RQHaD9?w=341&h=182&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3',
+    image: 'https://wallpapercave.com/wp/wp11551267.jpg',
     bg: '#1a1c18',
     accent: '#4ade80',
     isPremium: false
@@ -360,23 +360,19 @@ const StudyChill = () => {
             </div>
           </div>
 
-            <div className="mt-12 w-full max-w-md bg-black/40 backdrop-blur-md border border-white/10 p-4 rounded-2xl flex flex-col gap-4">
-              <div className="flex items-center gap-6">
-                <button onClick={toggleMusic} className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
-                  <span className="text-xl">{isMusicPlaying ? '⏸' : '▶️'}</span>
-                </button>
-                <div className="flex-1">
-                  <div className="flex justify-between text-[10px] uppercase tracking-widest text-gray-500 mb-1">
-                    <span className="font-bold">Rain Atmosphere</span>
-                    <span>{Math.round(sounds.rain * 100)}%</span>
-                  </div>
-                  <input type="range" min="0" max="1" step="0.01" value={sounds.rain} onChange={(e) => {
-                    setSounds({...sounds, rain: parseFloat(e.target.value)});
-                    if (rainAudioRef.current) rainAudioRef.current.volume = parseFloat(e.target.value);
-                  }} className="w-full accent-blue-500 h-1" />
-                </div>
-              </div>
-            </div>
+           <div className="mt-12 w-full max-w-md bg-black/40 backdrop-blur-md border border-white/10 p-6 rounded-3xl flex flex-col items-center gap-6">
+             <h3 className="text-center text-sm text-gray-500 uppercase tracking-widest">Music Atmosphere</h3>
+             <div className="w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+               <iframe 
+                 src="https://open.spotify.com/embed/playlist/78lWPOkG1nzQOWt5ScnQCD?utm_source=generator&theme=0" 
+                 width="100%" 
+                 height="152" 
+                 frameBorder="0" 
+                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; playbackState" 
+                 loading="lazy"
+               ></iframe>
+             </div>
+           </div>
         </div>
 
         <div className="w-full lg:w-96 flex flex-col gap-6">
