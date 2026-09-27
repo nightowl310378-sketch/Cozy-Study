@@ -42,6 +42,8 @@ const THEMES = {
 const StudyChill = () => {
   const [timer, setTimer] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
+  const [stopwatchTime, setStopwatchTime] = useState(0);
+  const [isStopwatchActive, setIsStopwatchActive] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
   const [currentTheme, setCurrentTheme] = useState('midnight');
@@ -83,6 +85,16 @@ const StudyChill = () => {
     }
     return () => clearInterval(interval);
   }, [isActive, timer]);
+
+  useEffect(() => {
+    let interval = null;
+    if (isStopwatchActive) {
+      interval = setInterval(() => {
+        setStopwatchTime((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isStopwatchActive]);
 
   useEffect(() => {
     if (totalStudyTime >= 3600 && !isPremium && !rewardUnlocked) {
@@ -138,6 +150,13 @@ const StudyChill = () => {
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
+  const formatStopwatch = (seconds) => {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs > 0 ? hrs + ':' : ''}${mins < 10 && hrs > 0 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
+
   const theme = THEMES[currentTheme];
 
   return (
@@ -188,6 +207,15 @@ const StudyChill = () => {
             <div className="flex gap-4 justify-center">
               <button onClick={() => setIsActive(!isActive)} className={`px-12 py-4 rounded-full font-bold transition-all transform hover:scale-105 ${isActive ? 'bg-red-500/20 text-red-400 border border-red-500/50' : `text-white border border-white/20 hover:bg-white/10 shadow-lg`}`}>{isActive ? 'Pause' : 'Start Study'}</button>
               <button onClick={() => {setIsActive(false); setTimer(25 * 60);}} className="bg-white/5 hover:bg-white/10 px-6 py-4 rounded-full transition-all border border-white/10">Reset</button>
+            </div>
+            
+            <div className="mt-8 pt-8 border-t border-white/10">
+              <h3 className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">Study Stopwatch</h3>
+              <div className="text-5xl font-light tracking-tighter mb-6 tabular-nums text-white/80">{formatStopwatch(stopwatchTime)}</div>
+              <div className="flex gap-3 justify-center">
+                <button onClick={() => setIsStopwatchActive(!isStopwatchActive)} className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${isStopwatchActive ? 'bg-white/10 text-white border border-white/20' : 'bg-white/20 text-gray-300 border border-white/30 hover:bg-white/30'}`}>{isStopwatchActive ? 'Stop' : 'Start'}</button>
+                <button onClick={() => {setIsStopwatchActive(false); setStopwatchTime(0);}} className="px-6 py-2 rounded-full text-sm font-medium bg-white/5 text-gray-500 border border-white/10 hover:bg-white/10 transition-all">Reset</button>
+              </div>
             </div>
           </motion.div>
 
