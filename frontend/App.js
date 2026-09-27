@@ -209,11 +209,12 @@ const StudyChill = () => {
               <button onClick={() => {setIsActive(false); setTimer(25 * 60);}} className="bg-white/5 hover:bg-white/10 px-6 py-4 rounded-full transition-all border border-white/10">Reset</button>
             </div>
             
-            <div className="mt-6 flex flex-col items-center gap-2">
-              <div className="text-2xl font-light tracking-tighter tabular-nums text-white/70">{formatStopwatch(stopwatchTime)}</div>
-              <div className="flex gap-2">
-                <button onClick={() => setIsStopwatchActive(!isStopwatchActive)} className={`px-4 py-1 rounded-full text-xs font-medium transition-all ${isStopwatchActive ? 'bg-white/10 text-white border border-white/20' : 'bg-white/20 text-gray-300 border border-white/30 hover:bg-white/30'}`}>{isStopwatchActive ? 'Stop' : 'Start'}</button>
-                <button onClick={() => {setIsStopwatchActive(false); setStopwatchTime(0);}} className="px-4 py-1 rounded-full text-xs font-medium bg-white/5 text-gray-500 border border-white/10 hover:bg-white/10 transition-all">Reset</button>
+            <div className="mt-8 p-6 bg-white/10 rounded-3xl border border-white/20 flex flex-col items-center gap-4 shadow-inner">
+              <h3 className="text-sm uppercase tracking-widest text-purple-300 font-bold">Stopwatch</h3>
+              <div className="text-6xl font-mono tracking-tighter tabular-nums text-white drop-shadow-lg">{formatStopwatch(stopwatchTime)}</div>
+              <div className="flex gap-4">
+                <button onClick={() => setIsStopwatchActive(!isStopwatchActive)} className={`px-8 py-2 rounded-full text-sm font-bold transition-all ${isStopwatchActive ? 'bg-red-500 text-white' : 'bg-green-500 text-white hover:bg-green-400'}`}>{isStopwatchActive ? 'Stop' : 'Start'}</button>
+                <button onClick={() => {setIsStopwatchActive(false); setStopwatchTime(0);}} className="px-8 py-2 rounded-full text-sm font-bold bg-white/20 text-white hover:bg-white/30 transition-all">Reset</button>
               </div>
             </div>
           </motion.div>
